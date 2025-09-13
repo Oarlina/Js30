@@ -6,17 +6,6 @@
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
 <body>
-
-
-    <div class="clock">
-      <div class="clock-face">
-        <div class="hand hour-hand"></div>
-        <div class="hand min-hand"></div>
-        <div class="hand second-hand"></div>
-      </div>
-    </div>
-
-
   <style>
     html {
       background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
@@ -25,7 +14,6 @@
       text-align: center;
       font-size: 10px;
     }
-
     body {
       margin: 0;
       font-size: 2rem;
@@ -34,7 +22,6 @@
       min-height: 100vh;
       align-items: center;
     }
-
     .clock {
       width: 30rem;
       height: 30rem;
@@ -49,25 +36,67 @@
         inset 0 0 10px black,
         0 0 10px rgba(0,0,0,0.2);
     }
-
     .clock-face {
       position: relative;
       width: 100%;
       height: 100%;
       transform: translateY(-3px); /* account for the height of the clock hands */
     }
-
     .hand {
-      width: 50%;
-      height: 6px;
+      width: 55%;
+      height: 8px;
       background: black;
       position: absolute;
       top: 50%;
+      /* cela permet de faire les transformation depuis le bout à droite*/
+      transform-origin: 87%;
+      /* je m'assure que les aiguilles soit d'abord tout en haut */
+      transform: rotate(90deg);
     }
-
+    /* je m'assure que la flèche des heures est la plus petite et épaisse*/
+    .hour-hand{
+      width: 35% !important;
+      height: 10px !important;
+      top: 50%;
+      right: 50%; 
+      transform-origin: 95%;
+    }
+    /* je m'assure que l'aiguille des secondes soit en rouge et fine */
+    .second-hand{
+      height: 4px;
+      width: 62%;
+      transform-origin: 78%;
+      background-color: red;
+    }
   </style>
-
+ 
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
   <script>
+    // permet de recharger la fonction toute les secondes?
+    setInterval(oClock, 1000);
+
+    function oClock (){
+      // je récupère la date
+      var date = new Date();
+      // je récupère l'heure, la minute et les secondes
+      var heure = date.getHours();
+      var min = date.getMinutes();
+      var sec = date.getSeconds();
+      // je recupere les div
+      var divHeure = document.querySelector(".hour-hand");
+      var divMin = document.querySelector(".min-hand");
+      var divSec = document.querySelector(".second-hand");
+      // je donne le degré de rotation a mettre
+      divHeure.style.transform = 'rotate('+ ((heure * 360)/ 24)+'deg)';
+      divMin.style.transform = 'rotate('+ ((min * 360)/ 60 + 90 )+'deg)';
+      divSec.style.transform = 'rotate('+ ((sec * 360)/ 60 + 90 )+'deg)';
+    }
 
 
   </script>
