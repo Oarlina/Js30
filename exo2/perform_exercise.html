@@ -50,8 +50,6 @@
       top: 50%;
       /* cela permet de faire les transformation depuis le bout à droite*/
       transform-origin: 87%;
-      /* je m'assure que les aiguilles soit d'abord tout en haut */
-      transform: rotate(90deg);
     }
     /* je m'assure que la flèche des heures est la plus petite et épaisse*/
     .hour-hand{
@@ -92,13 +90,13 @@
       var divHeure = document.querySelector(".hour-hand");
       var divMin = document.querySelector(".min-hand");
       var divSec = document.querySelector(".second-hand");
-      // je donne le degré de rotation a mettre
-      divHeure.style.transform = 'rotate('+ ((heure * 360)/ 24)+'deg)';
+      // je donne le degré de rotation a mettre puis je calcule les minutes en plus en divisant par le double de degre pour faire un petit decalage
+      divHeure.style.transform = 'rotate('+ ((heure * 360)/ 12 + (min * 360 /730) +90)+'deg)';
+      // je raoute 90 parce que l'aiguille est horizontal de base
       divMin.style.transform = 'rotate('+ ((min * 360)/ 60 + 90 )+'deg)';
+      // je raoute 90 parce que l'aiguille est horizontal de base
       divSec.style.transform = 'rotate('+ ((sec * 360)/ 60 + 90 )+'deg)';
     }
-
-
   </script>
 </body>
 </html>
