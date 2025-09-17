@@ -19,7 +19,8 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img src="https://images.unsplash.com/photo-1757778281735-f26d15bff432?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+  width="640" height="426">
 
   <style>
     :root {
@@ -61,13 +62,16 @@
   </style>
 
   <script>
+    // je récupère toutes les classes controls et toutes les balises input
     const inputs = document.querySelectorAll('.controls input');
 
     function handleUpdate() {
+      // je crée suffix qui récupère le type de taille choisit dans la div
       const suffix = this.dataset.sizing || '';
+      // je modifie la propriete CSS dans le root
       document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
     }
-
+    // je parcours les inputs et met un evenement lors d'un changement ou glissement sur chaque input qui realisera la fonction handleUpdate
     inputs.forEach(input => input.addEventListener('change', handleUpdate));
     inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
   </script>
