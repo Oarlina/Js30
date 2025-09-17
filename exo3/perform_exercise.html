@@ -50,7 +50,26 @@
 
 
   <script>
-    
+    // je réalise la div pour que dès le chargement de la page j'ai le CSS actif
+    updateChange();
+    // je récupère les balises pour l'espace, le floutage et la couleur de fond
+    const divs = document.querySelectorAll('#blur, #spacing, #base');
+
+    // je parcours toutes les balises et leur ajoute un evenement sur l'input qui realise la fonction updateChange
+    divs.forEach((input) => input.addEventListener('input', updateChange));
+    function updateChange(){
+      // je recupere les valeurs des balises, la classe parent : controls, et je récupère la div img
+      const blur = document.getElementById('blur').value;
+      const spacing = document.getElementById('spacing').value;
+      const base = document.getElementById('base').value;
+      const divParent = document.getElementsByClassName('controls')[0];
+      var img = document.querySelector('img');
+
+      // j'ajoute l'effet de blur et une bordure selon le spacing et la base color
+      img.style.filter = 'blur(' + blur + 'px)';
+      img.style.border = spacing + 'px solid ' + base;
+
+    }
   </script>
 </body>
 </html>
