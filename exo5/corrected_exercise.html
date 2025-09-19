@@ -126,20 +126,21 @@
   </div>
 
   <script>
+    // je recupere les panels
     const panels = document.querySelectorAll('.panel');
-
+    // je fais une fonctino toggleOpen pour ajouter la classe open
     function toggleOpen() {
       console.log('Hello');
       this.classList.toggle('open');
     }
-
+    // je realise une fonction toggleActive qui trouve les classes etant flex et active la classe open
     function toggleActive(e) {
       console.log(e.propertyName);
       if (e.propertyName.includes('flex')) {
         this.classList.toggle('open-active');
       }
     }
-
+    // je parcours les panels et ajoute un evenement sur clique et en fin de transition
     panels.forEach(panel => panel.addEventListener('click', toggleOpen));
     panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
   </script>
