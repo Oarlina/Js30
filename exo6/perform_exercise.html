@@ -16,8 +16,26 @@
     </ul>
   </form>
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  const search = document.querySelector('.search');
 
+  // je dois recuperer en JSON le lien endpoint
+  var cities;
+  fetch(endpoint)
+    .then(response => response.json()) // je récupère en JSON
+    .then(data => {cities = data;}) // je met les données dans la variable cities
+    .then(() => {console.log(cities);});
+  search.addEventListener('input', function(){
+
+
+      // je filtre les cités, les met en minuscule et verifies si la valeur de search est inclus dans une ville ou un état
+      var result = cities.filter(city => (city.city.toLowerCase().includes(search.value.toLowerCase()) || (city.state.toLowerCase().includes(search.value.toLowerCase()))));
+      // je met le resultat dans une balise suggestions
+      var suggestions = document.querySelector('.suggestions');
+      const space = ' ';
+      // je parcours le resultat et met de l'HTML pour le mettre sur l'HTML (.join() permet de retirer les virgules entre les cases) + number_format (nb decimal, separateur decimal , puis milliers)
+      suggestions.innerHTML = result.map(city => `<li> <span> ${city.city}, ${city.state} </span> <span> ${city.population} </span> </li>`).join('');
+    })
 </script>
 </body>
 </html>
