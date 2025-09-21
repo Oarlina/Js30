@@ -17,12 +17,16 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
-
+// on cree le tableau des cités
 const cities = [];
+// je récupère les villes de l'endpoint et rajoute au tableau cities
 fetch(endpoint)
   .then(blob => blob.json())
   .then(data => cities.push(...data));
 
+// je crée une fonction findMatches qui recupere wordToMatch et cities
+// je filtre et met une expression pour une recherche sur toutes les occurences et ne comptes pas le majuscule ou minuscule
+// et on return les villes et etat qui correspond a la recherche
 function findMatches(wordToMatch, cities) {
   return cities.filter(place => {
     // here we need to figure out if the city or state matches what was searched
@@ -30,14 +34,18 @@ function findMatches(wordToMatch, cities) {
     return place.city.match(regex) || place.state.match(regex)
   });
 }
-
+// je cree une fonction qui met des virgules pour les nombres
+// on remplace avec une regex  qui met une virgule apres chaque groupe de trois chiffres
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
-
+// je cree une fonction qui ajoute les resultats a la div suggestions
 function displayMatches() {
+  // je recupere les villes ayant les caracteres saisis
   const matchArray = findMatches(this.value, cities);
+  // je cree l'html 
   const html = matchArray.map(place => {
+    // je cree une regex qui sera mis en place sur la ville et l'etat, je retourne la balise HTML et enleve les virgule dans le tableau
     const regex = new RegExp(this.value, 'gi');
     const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
     const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
@@ -48,12 +56,13 @@ function displayMatches() {
       </li>
     `;
   }).join('');
-  suggestions.innerHTML = html;
+  // puis j'ajoute la variable html a la classe suggestions
+  suggestions.innerHTML = html; 
 }
-
+// je recupere la div avec les classe search et suggestions
 const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
-
+// j'ajoute un evenement lors d'un changement ou une touche enfoncé
 searchInput.addEventListener('change', displayMatches);
 searchInput.addEventListener('keyup', displayMatches);
 
